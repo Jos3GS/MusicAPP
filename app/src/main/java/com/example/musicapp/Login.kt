@@ -29,6 +29,9 @@ class Login : AppCompatActivity() {
 
                     true
                 }
+                R.id.btn_navigation_login_help -> {
+                    true
+                }
                 else -> false
             }
         }

@@ -3,6 +3,7 @@
 
     <item
         android:id="@+id/btn_navigation_login_login"
+        android:enabled="true"
         android:icon="@drawable/baseline_login_24"
         android:title="@string/LogIn"
         />
@@ -10,6 +11,15 @@
     <item
         android:id="@+id/btn_navigation_login_register"
         android:icon="@drawable/baseline_register_24"
+        android:enabled="true"
         android:title="@string/registrarse"
         />
+
+    <item
+        android:id="@+id/btn_navigation_login_help"
+        android:icon="@drawable/baseline_help_24"
+        android:enabled="true"
+        android:title="@string/ayuda"
+        />
+
 </menu>
