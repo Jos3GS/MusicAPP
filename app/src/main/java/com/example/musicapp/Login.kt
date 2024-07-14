@@ -5,6 +5,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.musicapp.fragments.fragment_login
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class Login : AppCompatActivity() {
@@ -22,7 +23,9 @@ class Login : AppCompatActivity() {
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId){
                 R.id.btn_navigation_login_login -> {
-
+                    supportFragmentManager.beginTransaction()
+                        .add(R.id.fragmentContainerLogin, fragment_login::class.java, null)
+                        .commit()
                     true
                 }
                 R.id.btn_navigation_login_register -> {

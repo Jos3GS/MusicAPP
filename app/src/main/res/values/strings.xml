@@ -5,4 +5,11 @@
     <string name="LogIn">Iniciar Sesión</string>
     <string name="registrarse">Registrarse</string>
     <string name="ayuda">Ayuda</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="email">Correo Electrónico</string>
+    <string name="password">Contraseña</string>
+    <string name="repite_la_contrase_a">Repite la contraseña</string>
+    <string name="nombre_completo">Nombre Completo</string>
+    <string name="minimo_8_caracteres">Minimo 8 caracteres</string>
 </resources>
