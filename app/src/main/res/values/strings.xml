@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MusicAPP</string>
+    <string name="login">Iniciar Sesión</string>
+    <string name="registro">Registro</string>
+    <string name="LogIn">Iniciar Sesión</string>
+    <string name="registrarse">Registrarse</string>
+</resources>
