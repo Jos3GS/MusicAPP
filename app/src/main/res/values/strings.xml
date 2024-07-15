@@ -12,4 +12,5 @@
     <string name="repite_la_contrase_a">Repite la contraseña</string>
     <string name="nombre_completo">Nombre Completo</string>
     <string name="minimo_8_caracteres">Minimo 8 caracteres</string>
+    <string name="acerca_de_musicapp">ACERCA DE MUSICAPP</string>
 </resources>
