@@ -6,10 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.musicapp.R
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
@@ -60,8 +62,19 @@ class fragment_registro : Fragment() {
             txtField_Register_password2 = view.findViewById(R.id.txtField_Register_password2)
             btn_Register_Registro = view.findViewById(R.id.btn_Register_Registro)
 
+            database = FirebaseDatabase.getInstance()
+            databaseReference = database.getReference().child("User")
+            auth = FirebaseAuth.getInstance()
+
         }catch(e: Exception) {
             Log.e("Fragment_register", "Error al inicializar los campos",e)
+        }
+
+        btn_Register_Registro.setOnClickListener {
+            if(register()) {
+                Toast.makeText(requireContext(), "Registro completo", Toast.LENGTH_SHORT)
+                    .show()
+            }
         }
         return view
     }
@@ -77,6 +90,55 @@ class fragment_registro : Fragment() {
 //                    putString(ARG_PARAM1, param1)
 //                    putString(ARG_PARAM2, param2)
 //                }
+//            }
+
+        private fun register(): Boolean{
+            try {
+                nameUser = txtField_Register_nameUser.text.toString()
+                email = txtField_Register_email.text.toString()
+                password = txtField_Register_password.text.toString()
+                password2 = txtField_Register_password2.text.toString()
+
+                if(nameUser.isEmpty() || email.isEmpty() || password.isEmpty() || password2.isEmpty()) throw Exception("Los campos no pueden estar vacios")
+                if(password != password2) throw Exception("Las contraseñas no coinciden")
+                if(password.length <8) throw Exception("La contraseña debe tener al menos 8 caracteres")
+
+                auth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener { task ->
+                        if(task.isComplete){
+                            val user:FirebaseUser? = auth.currentUser
+                            emailVerification(user)
+                            val userBD = databaseReference.child(user!!.uid)
+                            userBD.child("name").setValue(nameUser)
+                            userBD.child("email").setValue(email)
+                        }
+                    }
+                        .addOnFailureListener {
+                            throw Exception("Error al registrarse")
+                        }
+                return true
+
+            }catch (e: Exception){
+                Log.e("Fragment_register", "Error al registrarse", e)
             }
+            return false
+        }
+
+        private fun emailVerification(user: FirebaseUser?){
+            try {
+                user?.sendEmailVerification()
+                    ?.addOnCompleteListener { task->
+                        if(task.isComplete){
+                            Log.i("Fragment_register", "Registrado correctamente")
+                        }
+                    }
+                    ?.addOnFailureListener{
+                        throw Exception("Error al enviar el correo de verificación")
+                    }
+            } catch (e: Exception) {
+                Log.e("Fragment_register", "Error al registrarse", e)
+            }
+        }
     }
+
 }
