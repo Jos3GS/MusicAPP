@@ -21,9 +21,12 @@ class Login : AppCompatActivity() {
             insets
         }
 
+
+
         if(savedInstanceState == null){
             supportFragmentManager.beginTransaction()
                 .add(R.id.fragmentContainerLogin, fragment_login::class.java, null)
+                .setReorderingAllowed(true)
                 .commit()
         }
 
