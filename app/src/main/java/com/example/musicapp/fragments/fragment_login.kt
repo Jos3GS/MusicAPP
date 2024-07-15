@@ -57,6 +57,11 @@ class fragment_login : Fragment() {
             txtEmail = view.findViewById(R.id.txtField_login_email)
             txtPassword = view.findViewById(R.id.txtField_login_password)
             btnLogin = view.findViewById(R.id.btn_login_Ingresar)
+
+            database = FirebaseDatabase.getInstance()
+            databaseReference = database.getReference().child("User")
+            auth = FirebaseAuth.getInstance()
+
         } catch (e: Exception) {
             Log.e("Fragment_login", "Error al inicializar los campos",e)
         }
@@ -90,8 +95,6 @@ private fun login(): Boolean{
         email = txtEmail.text.toString()
         password = txtPassword.text.toString()
         if(email.isEmpty() || password.isEmpty()) throw Exception("Los campos no pueden estar vacios")
-        database = FirebaseDatabase.getInstance()
-        databaseReference = database.getReference().child("User")
         auth.signInWithEmailAndPassword(email,password)
             .addOnCompleteListener { task ->
                 if(task.isSuccessful){
